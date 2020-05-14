@@ -6,7 +6,7 @@ Whenever you build the image, just make sure that you're using the right name an
 $ docker-compose build
 ```
 
-## The image mage size is over 1.6 GB?!
+## The image size is over 1.6 GB?!
 
 Yeah, I don't know why it does that yet. You can decrease the size of approx. 700 MB by login into the container and deleting **/libxenon**:
 
@@ -16,7 +16,7 @@ root@[container id]# rm -rf /libxenon
 root@[container id]# exit
 ```
 
-Now you can export the container using the id listed in the shell, and then load it into your images
+Now you can export the container using the [container id], and then load it into your images. You should also delete your previous image to avoid issues.
 
 ```bash
 $ docker image rm -f thelastbilly/libxenon:latest

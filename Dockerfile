@@ -33,14 +33,14 @@ RUN apt-get autoremove
 RUN mkdir -p /usr/local/xenon
 RUN cd /tmp && git clone https://github.com/unluckybudget/libxenon
 WORKDIR /tmp/libxenon/toolchain 
-RUN ./build-xenon-toolchain toolchain
+RUN ./build-xenon-toolchain toolchain - set PARALLEL=j4
 
 #Add paths to it
 ENV DEVKITXENON /usr/local/xenon
 ENV PATH $DEVKITXENON/bin:$DEVKITXENON/usr/bin:$PATH
 
 #Build and install libraries
-RUN ./build-xenon-toolchain libs
+#RUN ./build-xenon-toolchain libs
 
 RUN mkdir /mnt/share && chmod 777 /mnt/share
 WORKDIR /mnt/share

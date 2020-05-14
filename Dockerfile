@@ -1,5 +1,6 @@
-FROM ubuntu:12.04
+FROM ubuntu:20.04
 
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
                           gcc \
                           make \
@@ -14,17 +15,23 @@ RUN apt-get update && apt-get install -y \
                           gettext \
                           ncurses-dev \
                           fish \
-                          vim
+                          vim \
+                          sudo \
+                          flex \
+                          bison \
+                          gcc-multilib
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata                  
 RUN apt-get autoremove
 
 #Build and install texinfo
-COPY ./scripts/install_texinfo.sh /install_texinfo.sh
-RUN chmod +x /install_texinfo.sh && /install_texinfo.sh
-RUN rm /install_texinfo.sh
+#COPY ./scripts/install_texinfo.sh /install_texinfo.sh
+#RUN chmod +x /install_texinfo.sh && /install_texinfo.sh
+#RUN rm /install_texinfo.sh
 
 #Build and install toolchain and libxenon
 RUN mkdir -p /usr/local/xenon
-RUN cd /tmp && git clone git://github.com/TheLastBilly/libxenon
+RUN cd /tmp && git clone https://github.com/unluckybudget/libxenon
 WORKDIR /tmp/libxenon/toolchain 
 RUN ./build-xenon-toolchain toolchain
 

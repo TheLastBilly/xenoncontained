@@ -28,16 +28,14 @@ WORKDIR libxenon/toolchain
 RUN ./build-xenon-toolchain toolchain
 
 #Add paths to it
-RUN echo 'export DEVKITXENON="/usr/local/xenon"' >> /root/.bashrc
-RUN echo 'export PATH="$PATH:$DEVKITXENON/bin:$DEVKITXENON/usr/bin"' >> /root/.bashrc
+ENV DEVKITXENON /usr/local/xenon
+ENV PATH $DEVKITXENON/bin:$DEVKITXENON/usr/bin:$PATH
 
 #Build and install libraries
 RUN ./build-xenon-toolchain libs
 
-#Add fish path scripts
-COPY ./scripts/fish_entry.fish /fish_entry.fish
-RUN chmod +x /fish_entry.fish
-
+RUN mkdir /mnt/share && chmod 777 /mnt/share
 WORKDIR /mnt/share
+RUN rm -rf /libxenon
 
 CMD ["/bin/bash"]

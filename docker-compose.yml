@@ -5,5 +5,3 @@ services:
         build: .
         image: thelastbilly/libxenon
         container_name: libxenon
-        volumes: 
-            - ".:/mnt/share"

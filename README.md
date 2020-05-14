@@ -1,12 +1,12 @@
 # Libxenon Contained
 
-This is a docker image that I built to help setting up a developing enviroment for [libxenon](https://github.com/Free60Project/libxenon), a library used to write homebrew applications for the Xbox 360.
+This is a docker image that I built to help me set up a working development enviroment for [libxenon](https://github.com/Free60Project/libxenon), a library used to write homebrew applications for the Xbox 360.
 
 ## Why Docker? 
 
-I could have made a VM image instead, but a docker image is a bit more flexible and easy to move around, it also requires a bit less setup to deploy. And yes, I know Docker was not designed for this kind of stuff, but I'm not the first one to come up with the concept, and the image has worked quite well for me so far, so I'd say it's good enough.
+I could have made a VM image instead, but a docker image is a bit more flexible and easy to move around, it also requires less work to get it working. And yes, I know Docker was not designed for this kind of stuff, but I'm not the first one to come up with the concept, and the image has worked quite well for me so far, so I'd say it's good enough.
 
-The only issue I have with the current image however is it's size, but that is something I imagine I'll be able to get around at some point in the future. And of course, if you'd like to contribute in any way, please do, I welcome any contributions to the project. 
+The only issue I have with the current image however, is it's size, but that is something I imagine I'll be able to get around at some point in the future. And of course, if you'd like to contribute in any way, please do, I welcome any contributions to the project. 
 
 ## Usage
 
@@ -20,7 +20,7 @@ You can now open a shell in your current directory by either using the **libxeno
 $ docker run -ti -v "[Your Directory]:/mnt/share:" thelastbilly/libxenon:latest /bin/bash
 ```
 
-If can also create an alias for the command in your shell. The process is rather simple to do for most shells:
+You can also create an alias for the command in your terminal. The process is rather simple to do for most shells:
 
 ### Bash
 Copy the following line at the end of **~/.bashrc**:

@@ -12,10 +12,25 @@ The only issue I have with the current image however is it's size, but that is s
 
 You'll first have to pull the image from docker hub. You can do so by typing the following command into your terminal
 ```bash
-docker pull thelastbilly/libxenon:initial
+docker pull thelastbilly/libxenon:latest
 ```
 
 You can now open a shell in your current directory by either using the **libxenon_bash.sh** script on the root of this directory, or by using the following command:
 ```bash
-docker run -ti -v "[Your Directory]:/mnt/share:" thelastbilly/libxenon /bin/bash
+docker run -ti -v "[Your Directory]:/mnt/share:" thelastbilly/libxenon:latest /bin/bash
 ```
+
+If can also create an alias for the command in your shell. The process is rather simple to do for most shells:
+
+### Bash
+Copy the following line at the end of **~/.bashrc**:
+```vim
+alias libxenon_bash="docker run -ti -v $(pwd):/mnt/share:rw thelastbilly/libxenon:latest /bin/sh -c 'cd /mnt/share && bash'"
+```
+
+Then apply the changes to your current shell.
+```bash
+$ source ~/.bashrc
+```
+ 
+That's it!, you can now use the `libxenon_bash` command to launch the bash shell on your libxenon enviroment.

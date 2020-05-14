@@ -3,7 +3,7 @@
 Whenever you build the image, just make sure that you're using the right name and tags for it. You can make sure of it by using the included **docker-compose.yml** with the following command:
 
 ```bash
-docker-compose build
+$ docker-compose build
 ```
 
 ## Images size is over 1.6 GB?!

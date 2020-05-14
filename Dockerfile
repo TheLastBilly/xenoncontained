@@ -19,15 +19,11 @@ RUN apt-get update && apt-get install -y \
                           sudo \
                           flex \
                           bison \
-                          gcc-multilib
+                          gcc-multilib \
+                          tzdata
 RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 RUN dpkg-reconfigure --frontend noninteractive tzdata                  
 RUN apt-get autoremove
-
-#Build and install texinfo
-#COPY ./scripts/install_texinfo.sh /install_texinfo.sh
-#RUN chmod +x /install_texinfo.sh && /install_texinfo.sh
-#RUN rm /install_texinfo.sh
 
 #Build and install toolchain and libxenon
 RUN mkdir -p /usr/local/xenon

@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y \
                           ncurses-dev \
                           fish \
                           vim
+RUN apt-get autoremove
 
 #Build and install texinfo
 COPY ./scripts/install_texinfo.sh /install_texinfo.sh
@@ -23,8 +24,8 @@ RUN rm /install_texinfo.sh
 
 #Build and install toolchain and libxenon
 RUN mkdir -p /usr/local/xenon
-RUN git clone git://github.com/TheLastBilly/libxenon
-WORKDIR libxenon/toolchain 
+RUN cd /tmp && git clone git://github.com/TheLastBilly/libxenon
+WORKDIR /tmp/libxenon/toolchain 
 RUN ./build-xenon-toolchain toolchain
 
 #Add paths to it
@@ -36,6 +37,7 @@ RUN ./build-xenon-toolchain libs
 
 RUN mkdir /mnt/share && chmod 777 /mnt/share
 WORKDIR /mnt/share
-RUN rm -rf /libxenon
+RUN rm -rf /tmp/libxenon
 
 CMD ["/bin/bash"]
+

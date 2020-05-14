@@ -18,9 +18,9 @@ root@[container id]# rm -rf /libxenon
 Now you can export the container using the id listed in the shell, and then load it into your images
 
 ```bash
-docker image rm -f thelastbilly/libxenon:latest
-docker export [container id] > my_image.tar.gz
-cat my_image.tar.gz | docker import - thelastbilly/libxenon:latest
+$ docker image rm -f thelastbilly/libxenon:latest
+$ docker export [container id] > my_image.tar.gz
+$ cat my_image.tar.gz | docker import - thelastbilly/libxenon:latest
 ```
 
 

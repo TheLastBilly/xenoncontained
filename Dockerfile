@@ -35,7 +35,7 @@ RUN echo 'export PATH="$PATH:$DEVKITXENON/bin:$DEVKITXENON/usr/bin"' >> /root/.b
 RUN ./build-xenon-toolchain libs
 
 #Add fish path scripts
-COPY ./scripts/fish_entry.fish /fish_entry.sh
+COPY ./scripts/fish_entry.fish /fish_entry.fish
 RUN chmod +x /fish_entry.fish
 
 WORKDIR /mnt/share

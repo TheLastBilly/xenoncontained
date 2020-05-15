@@ -3,5 +3,5 @@ version: '3.0'
 services: 
     libxenon:
         build: .
-        image: thelastbilly/libxenon:buster
+        image: thelastbilly/libxenon:latest
         container_name: libxenon

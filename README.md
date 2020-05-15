@@ -17,7 +17,7 @@ $ docker pull thelastbilly/libxenon:latest
 
 You can now open a shell in your current directory by either using the **libxenon_bash.sh** script on the root of this directory, or by using the following command:
 ```bash
-$ docker run -ti -v "[Your Directory]:/mnt/share:" thelastbilly/libxenon:latest /bin/bash
+$ docker run -ti -v "[Your Directory]:/mnt/share:" thelastbilly/libxenon:latest "/bin/sh -c 'su - libxenon && cd /mnt/share'"
 ```
 
 You can also create an alias for the command in your terminal. The process is rather simple to do for most shells:
@@ -25,7 +25,7 @@ You can also create an alias for the command in your terminal. The process is ra
 ### Bash
 Copy the following line at the end of **~/.bashrc**:
 ```vim
-alias libxenon_bash="docker run -ti -v $(pwd):/mnt/share:rw thelastbilly/libxenon:latest /bin/sh -c 'cd /mnt/share && bash'"
+alias libxenon_bash="docker run -ti -v $(pwd):/mnt/share:rw thelastbilly/libxenon:latest /bin/sh -c 'su - libxenon && cd /mnt/share'"
 ```
 
 Then apply the changes to your current shell.

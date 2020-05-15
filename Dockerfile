@@ -1,4 +1,4 @@
-FROM debian:buster
+FROM debian:buster-slim
 
 ENV XENON_BCORE=j4
 ENV DEBIAN_FRONTEND noninteractive
@@ -42,7 +42,10 @@ RUN ./build-xenon-toolchain libxenon - set PARALLEL=${XENON_BCORE}
 #Build and install libraries
 RUN ./build-xenon-toolchain libs - set PARALLEL=${XENON_BCORE}
 
-RUN mkdir /mnt/share && chmod 777 /mnt/share
+#Set access for folder and user
+RUN mkdir /mnt/share && chmod 757 -R /mnt/share
+RUN adduser --home /mnt/share libxenon --shell /bin/bash
+
 WORKDIR /mnt/share
 RUN rm -rf /tmp/libxenon && \
     rm -rf /var/lib/apt/lists/* && \

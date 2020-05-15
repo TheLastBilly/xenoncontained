@@ -8,20 +8,20 @@ $ docker-compose build
 
 ## The image size is over 1.6 GB?!
 
-Yeah, I don't know why it does that yet. You can decrease the size to approx. 700 MB by login into the container and deleting the **/libxenon** directory:
+That's because the image does not only have the data inside the container, but it also keeps a history of its previous iterations (as far as I know, I could be wrong tho). Anyways, in order to "fix" that, just export the image and import it again. If you want to get the **[container id]** just login into your container and extract it from the shell:
 
 ```
-$ docker run -ti thelastbilly/libxenon /bin/bash
-root@[container id]# rm -rf /libxenon
-root@[container id]# exit
+libxenon@22fdb38dc640:~$
+         ^^^^^^^^^^^^
+         Here's the ID
 ```
 
-Now you can export the container using the ***[container id]*** located in the container's shell prompt, and then load it into your docker images. You should also delete your previous image to avoid issues.
+Once you get it, just run the following commands and you should be good to go
 
 ```bash
-$ docker image rm -f thelastbilly/libxenon:latest
 $ docker export [container id] > my_image.tar.gz
 $ cat my_image.tar.gz | docker import - thelastbilly/libxenon:latest
+$ rm my_image.tar.gz
 ```
 
 

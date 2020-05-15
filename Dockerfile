@@ -45,6 +45,7 @@ RUN ./build-xenon-toolchain libs - set PARALLEL=${XENON_BCORE}
 #Set access for folder and user
 RUN mkdir /mnt/share && chmod 757 -R /mnt/share
 RUN adduser --home /mnt/share libxenon --shell /bin/bash
+RUN echo 'unset HISTFILE' >> /etc/profile.d/disable.history.sh
 
 WORKDIR /mnt/share
 RUN rm -rf /tmp/libxenon && \

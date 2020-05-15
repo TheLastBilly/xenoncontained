@@ -46,6 +46,9 @@ RUN ./build-xenon-toolchain libs - set PARALLEL=${XENON_BCORE}
 RUN mkdir /mnt/share && chmod 757 -R /mnt/share
 RUN adduser --home /mnt/share libxenon --shell /bin/bash
 RUN echo 'unset HISTFILE' >> /etc/profile.d/disable.history.sh
+RUN echo "#!/bin/bash" >> /etc/profile.d/libxenon.sh
+RUN echo "export DEVKITXENON=/usr/local/xenon" >> /etc/profile.d/libxenon.sh
+RUN echo "export PATH=$DEVKITXENON/bin:$DEVKITXENON/usr/bin:$PATH" >> /etc/profile.d/libxenon.sh
 
 WORKDIR /mnt/share
 RUN rm -rf /tmp/libxenon && \

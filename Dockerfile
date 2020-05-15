@@ -1,12 +1,14 @@
-FROM ubuntu:12.04
+FROM debian:buster
 
+ENV XENON_BCORE=j4
+ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
                           gcc \
                           make \
                           git \
                           build-essential \
                           wget \
-                          lsb-core lsb-release \
+                          lsb-release \
                           libgmp3-dev \
                           libmpfr-dev \
                           libmpc-dev \
@@ -14,30 +16,37 @@ RUN apt-get update && apt-get install -y \
                           gettext \
                           ncurses-dev \
                           fish \
-                          vim
+                          vim \
+                          sudo \
+                          flex \
+                          bison \
+                          gcc-multilib \
+                          tzdata
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata                  
 RUN apt-get autoremove
 
-#Build and install texinfo
-COPY ./scripts/install_texinfo.sh /install_texinfo.sh
-RUN chmod +x /install_texinfo.sh && /install_texinfo.sh
-RUN rm /install_texinfo.sh
-
-#Build and install toolchain and libxenon
+#Build and install toolchain
 RUN mkdir -p /usr/local/xenon
-RUN cd /tmp && git clone git://github.com/TheLastBilly/libxenon
+RUN cd /tmp && git clone https://github.com/unluckybudget/libxenon
 WORKDIR /tmp/libxenon/toolchain 
-RUN ./build-xenon-toolchain toolchain
+RUN ./build-xenon-toolchain toolchain - set PARALLEL=${XENON_BCORE}
 
 #Add paths to it
 ENV DEVKITXENON /usr/local/xenon
 ENV PATH $DEVKITXENON/bin:$DEVKITXENON/usr/bin:$PATH
 
+#Build and install libxenon
+RUN ./build-xenon-toolchain libxenon - set PARALLEL=${XENON_BCORE}
+
 #Build and install libraries
-RUN ./build-xenon-toolchain libs
+RUN ./build-xenon-toolchain libs - set PARALLEL=${XENON_BCORE}
 
 RUN mkdir /mnt/share && chmod 777 /mnt/share
 WORKDIR /mnt/share
-RUN rm -rf /tmp/libxenon
+RUN rm -rf /tmp/libxenon && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt autoremove -y
 
 CMD ["/bin/bash"]
 
